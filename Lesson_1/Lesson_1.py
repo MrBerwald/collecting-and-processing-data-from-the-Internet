@@ -2,7 +2,7 @@ import requests
 import json
 url ='https://api.github.com/'
 user = 'MrBerwald'
-token = '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'
+token = ''
 
 repos = requests.get('https://api.github.com/user/repos', auth=(user, token))
 
