@@ -9,7 +9,7 @@ headers = {
 
 main_url = 'https://hh.ru/search/vacancy'
 
-params = {'text': 'Python',
+params = {'text': 'C++ junior',
           'page': 1,
           'salary': 'true',
           'clusters': 'true',
@@ -17,11 +17,15 @@ params = {'text': 'Python',
           }
 
 jobs_data = []
-
 response = requests.get(main_url, params=params, headers=headers)
 
-if response.ok:
+
+while response.ok:
     dom = bs(response.text, 'html.parser')
+    res = dom.find('div', {'data-qa': 'vacancy-serp__results'})
+    if not res:
+        break
+
     vacancies = dom.find_all('div', {'class': 'vacancy-serp-item'})
 
     for vacancy in vacancies:
@@ -56,8 +60,11 @@ if response.ok:
         data["url"] = url
 
         jobs_data.append(data)
-        params['page'] += 1
+    if not dom.find('a', {'data-qa': 'data-qa'}):
+        break
+    params['page'] += 1
+
 print(jobs_data)
 
-with open('result.json', 'w') as f:
+with open('result.json', 'w', encoding='utf-8') as f:
     json.dump(jobs_data, f)
