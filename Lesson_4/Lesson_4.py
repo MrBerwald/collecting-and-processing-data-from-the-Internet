@@ -19,17 +19,17 @@ data = []
 
 for i in news_res:
     news = {}
-        title_result = item.xpath(".//h2[contains(@class, 'mg-card__title')]/a/text()")
-        link_result = item.xpath(".//h2[contains(@class, 'mg-card__title')]/a/@href")
-        source_result = item.xpath(".//span[contains(@class, 'mg-card-source__source')]/a/text()")
-        time_result = item.xpath(".//span[contains(@class, 'mg-card-source__time')]/text()")
+    title_result = i.xpath(".//h2[contains(@class, 'mg-card__title')]/a/text()")
+    link_result = i.xpath(".//h2[contains(@class, 'mg-card__title')]/a/@href")
+    source_result = i.xpath(".//span[contains(@class, 'mg-card-source__source')]/a/text()")
+    time_result = i.xpath(".//span[contains(@class, 'mg-card-source__time')]/text()")
 
-        news['title'] = title_result[0].replace('\xa0', ' ') if len(title_result) else None
-        news['link'] = link_result[0] if len(link_result) else None
-        news['source'] = source_result[0] if len(source_result) else None
-        news['datetime'] = datetime.now().strftime("%Y-%m-%d") + ' ' + time_result[0] if len(time_result) else None
+    news['title'] = title_result[0].replace('\xa0', ' ') if len(title_result) else None
+    news['link'] = link_result[0] if len(link_result) else None
+    news['source'] = source_result[0] if len(source_result) else None
+    news['datetime'] = datetime.now().strftime("%Y-%m-%d") + ' ' + time_result[0] if len(time_result) else None
 
-        data.append(news)
+    data.append(news)
 
 pprint(data)
 
